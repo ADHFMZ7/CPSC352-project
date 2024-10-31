@@ -63,8 +63,8 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /chat", chat)
-	// mux.HandleFunc("POST /register", register)
-	mux.HandleFunc("POST /register", login)
+	mux.HandleFunc("POST /register", register)
+	mux.HandleFunc("POST /login", login)
 
 	log.Println("Starting server on port 80")
 
