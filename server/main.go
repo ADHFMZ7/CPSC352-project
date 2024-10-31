@@ -4,17 +4,39 @@ import (
 	"fmt"
 	"net/http"
 	"log"
+	"errors"
 )
 
 var users = map[string]string{"admin": "admin", "user": "password"}
-var sessions = map[string]string{"token": "session"}
+var sessions = map[string]string{"token": "use", "password":"correct"}
+
+// func GetUser(r *http.Request) (*User, error) {
+func GetUser(r *http.Request) (string, error) {
+
+	token := r.Header.Get("Authorization")
+
+	session := sessions[token]
+
+
+	if session == "" {
+		return "", errors.New("Invalid session")
+	}
+	
+	return "", nil
+}
+
 
 func chat(w http.ResponseWriter, req *http.Request) {
-	for name, headers := range req.Header {
-		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
-		}
+	
+	// For now this is just an authenticated endpoint
+	_ , err := GetUser(req)
+
+	if err != nil {
+		return
 	}
+
+	fmt.Fprintf(w, "Successfully authenticated user")
+
 }
 
 func register(w http.ResponseWriter, req *http.Request) {
@@ -49,7 +71,7 @@ func login(w http.ResponseWriter, req *http.Request) {
 	if users[username] == password {
 		// Generate session key
 		// send it
-		key := "SESSION KEY"
+		key := "sessionkey"
 		fmt.Fprintf(w, key)
 		w.WriteHeader(http.StatusOK)
 		return
