@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { MessageSquare, Plus, Menu, UserPlus, Settings } from "lucide-react"
 
-export function ChatInterface() {
+export function ChatInterface( {chats, friends} ) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false)
 
@@ -27,7 +27,7 @@ export function ChatInterface() {
         <div className="flex-1 overflow-y-auto">
           {/* Chat list */}
           <div className="p-2 font-semibold">Chats</div>
-          {[1, 2, 3].map((chat) => (
+          {chats.map((chat) => (
             <div key={chat} className="p-2 hover:bg-primary/10 cursor-pointer flex items-center">
               <MessageSquare className="mr-2 h-4 w-4" />
               <span>Chat {chat}</span>
@@ -35,7 +35,7 @@ export function ChatInterface() {
           ))}
           {/* Friends list */}
           <div className="p-2 font-semibold mt-4">Friends</div>
-          {['Alice', 'Bob', 'Charlie'].map((friend) => (
+          {friends.map((friend) => (
             <div key={friend} className="p-2 hover:bg-primary/10 cursor-pointer flex items-center">
               <div className="w-2 h-2 rounded-full bg-green-500 mr-2" />
               <span>{friend}</span>
