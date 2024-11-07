@@ -32,12 +32,26 @@ func chat(w http.ResponseWriter, req *http.Request) {
 	_ , err := GetUser(req)
 
 	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 
 	fmt.Fprintf(w, "Successfully authenticated user")
 
 }
+
+
+func create_chat(w http.ResponseWriter, req *http.Request) {
+
+	// Should take in the follwing parameters
+	//
+	// users: list of user ids for the new chat
+
+}
+
+
+
+
 
 func register(w http.ResponseWriter, req *http.Request) {
 	// Register a new user
@@ -71,7 +85,9 @@ func login(w http.ResponseWriter, req *http.Request) {
 	if users[username] == password {
 		// Generate session key
 		// send it
+
 		key := "sessionkey"
+		sessions[key] = "session" // make this a session object. Find out what it needs to track
 		fmt.Fprintf(w, key)
 		w.WriteHeader(http.StatusOK)
 		return
