@@ -11,3 +11,8 @@ An end-to-end encrypted chat app
 - Login page
 - Register page
 - Session management
+
+
+## TODO
+- Look into go contexts
+

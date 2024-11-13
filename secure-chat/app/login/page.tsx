@@ -1,17 +1,14 @@
-"use client";
-
+"use client"
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://localhost:80/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +18,6 @@ export default function LoginPage() {
 
     if (response.ok) {
       console.log('Login successful');
-      router.push('/dashboard'); // Redirect to the dashboard or another page
     } else {
       console.log('Login failed');
     }
